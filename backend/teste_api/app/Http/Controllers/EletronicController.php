@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\EletronicResource;
 use App\Models\Eletronic;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -22,7 +23,7 @@ class EletronicController extends Controller
      */
     public function index()
     {
-        return $this->eletronic->all();
+        return EletronicResource::collection($this->eletronic->all());
     }
 
     /**
@@ -53,7 +54,7 @@ class EletronicController extends Controller
      * Display the specified resource.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  Eletronic  $eletronic
+     * @param  id $id
      * @return \Illuminate\Http\Response
      */
     public function show(Request $request, $id)
@@ -71,11 +72,17 @@ class EletronicController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  Eletronic
+     * @param  id $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Eletronic $eletronic)
+    public function update(Request $request, $id)
     {
+        $eletronic = Eletronic::find($id);
+
+        if ($eletronic === null) {
+            return response()->json(['message' => 'Eletrodoméstico não encontrado'], 404);
+        }
+
         $validator = Validator::make($request->all(), [
             'name' => 'required',
             'description' => 'required',
@@ -96,6 +103,7 @@ class EletronicController extends Controller
      * Remove the specified resource from storage.
      *
      * @param  \Illuminate\Http\Request  $request
+     * @param  id $id
      * @return \Illuminate\Http\Response
      */
     public function destroy(Request $request, $id)

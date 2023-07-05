@@ -4,7 +4,7 @@
 ### rodar o php artisan make:migration
 ### rodar o php artisan serve
 
-### endpoints 
+# Endpoints 
 
 ### GET /eletronic para buscar todos os eletrodoméstico
 
