@@ -67,8 +67,11 @@
           {{ errors.brand && errors.brand[0] }}
         </div>
 
-        <div class="col-12 mb-3">
+        <div class="col-12 mb-3 d-flex gap-2">
           <button type="submit" class="btn btn-success col-lg-1">Salvar</button>
+          <button type="button" @click="reset" class="btn btn-info col-lg-1">
+            Cancelar
+          </button>
         </div>
       </form>
 
@@ -162,8 +165,8 @@ export default {
             this.selectedBrand = "";
           })
           .catch((e) => {
-            Swal.fire("", e.response.data.errors, "error");
             this.errors = e.response.data.errors || [];
+            this.requestErro(e);
           });
       } else {
         Eletronic.updateEletronic(this.eletronic)
@@ -175,8 +178,8 @@ export default {
             this.selectedBrand = "";
           })
           .catch((e) => {
-            Swal.fire("", e.response.data.errors, "error");
             this.errors = e.response.data.errors || [];
+            this.requestErro(e);
           });
       }
     },
@@ -200,8 +203,8 @@ export default {
               this.selectedBrand = "";
             })
             .catch((e) => {
-              Swal.fire("", e.response.data.errors, "error");
               this.errors = e.response.data.errors || [];
+              this.requestErro(e);
             });
         }
       });
@@ -216,6 +219,24 @@ export default {
         }
       }
       this.eletronic = eletronic;
+    },
+
+    reset() {
+      this.eletronic = {};
+      this.list();
+      this.errors = [];
+      this.selectedBrand = "";
+    },
+
+    requestErro(e) {
+      let htmlErro = "";
+      for (const index in e.response.data.errors) {
+        htmlErro += e.response.data.errors[index][0] + "<br>";
+      }
+      Swal.fire({
+        icon: "error",
+        html: htmlErro,
+      });
     },
 
     //Validação do submit do form
