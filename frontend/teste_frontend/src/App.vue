@@ -159,27 +159,35 @@ export default {
         Eletronic.createEletronic(this.eletronic)
           .then((res) => {
             Swal.fire("", res.data.message, "success");
-            this.eletronic = {};
-            this.list();
-            this.errors = [];
-            this.selectedBrand = "";
+            this.limparForm();
           })
           .catch((e) => {
+            let htmlErro = "";
+            for (const index in e.response.data.errors) {
+              htmlErro += e.response.data.errors[index][0] + "<br>";
+            }
+            Swal.fire({
+              icon: "error",
+              html: htmlErro,
+            });
             this.errors = e.response.data.errors || [];
-            this.requestErro(e);
           });
       } else {
         Eletronic.updateEletronic(this.eletronic)
           .then((res) => {
             Swal.fire("", res.data.message, "success");
-            this.eletronic = {};
-            this.list();
-            this.errors = [];
-            this.selectedBrand = "";
+            this.limparForm();
           })
           .catch((e) => {
+            let htmlErro = "";
+            for (const index in e.response.data.errors) {
+              htmlErro += e.response.data.errors[index][0] + "<br>";
+            }
+            Swal.fire({
+              icon: "error",
+              html: htmlErro,
+            });
             this.errors = e.response.data.errors || [];
-            this.requestErro(e);
           });
       }
     },
@@ -197,14 +205,10 @@ export default {
           Eletronic.deleteEletronic(eletronic)
             .then((res) => {
               Swal.fire("", res.data.message, "success");
-              this.eletronic = {};
-              this.list();
-              this.errors = [];
-              this.selectedBrand = "";
+              this.limparForm();
             })
             .catch((e) => {
-              this.errors = e.response.data.errors || [];
-              this.requestErro(e);
+              Swal.fire("", e.response.data.message, "error");
             });
         }
       });
@@ -228,17 +232,6 @@ export default {
       this.selectedBrand = "";
     },
 
-    requestErro(e) {
-      let htmlErro = "";
-      for (const index in e.response.data.errors) {
-        htmlErro += e.response.data.errors[index][0] + "<br>";
-      }
-      Swal.fire({
-        icon: "error",
-        html: htmlErro,
-      });
-    },
-
     //Validação do submit do form
     validacao() {
       if (this.eletronic.name != "") {
@@ -253,6 +246,13 @@ export default {
       if (this.selectedBrand != "") {
         this.errors.brand = "";
       }
+    },
+
+    limparForm() {
+      this.eletronic = {};
+      this.list();
+      this.errors = [];
+      this.selectedBrand = "";
     },
   },
 };
