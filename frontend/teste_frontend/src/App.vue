@@ -162,6 +162,7 @@ export default {
             this.selectedBrand = "";
           })
           .catch((e) => {
+            Swal.fire("", e.response.data.errors, "error");
             this.errors = e.response.data.errors || [];
           });
       } else {
@@ -174,6 +175,7 @@ export default {
             this.selectedBrand = "";
           })
           .catch((e) => {
+            Swal.fire("", e.response.data.errors, "error");
             this.errors = e.response.data.errors || [];
           });
       }
@@ -198,6 +200,7 @@ export default {
               this.selectedBrand = "";
             })
             .catch((e) => {
+              Swal.fire("", e.response.data.errors, "error");
               this.errors = e.response.data.errors || [];
             });
         }
