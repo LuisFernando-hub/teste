@@ -230,12 +230,6 @@ export default {
         this.errors.brand = "";
       }
     },
-    mostrarToast() {
-      this.$bvToast.toast(`Descrição do toast`, {
-        title: "Ola mund",
-        autoHideDelay: 3000,
-      });
-    },
   },
 };
 </script>
