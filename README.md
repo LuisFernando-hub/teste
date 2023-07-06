@@ -1,3 +1,4 @@
+# BACKEND
 ### Entre no caminho /backend/teste_api
 
 ### rodar o npm install
@@ -18,3 +19,11 @@
 
 ### DELETE /eletronic/{id} para excluir um eletrodoméstico
 
+
+# FrontEnd
+
+### Entre no caminho /frontend/teste_frontend
+
+### rodar o npm install
+
+### rodar o npm run dev

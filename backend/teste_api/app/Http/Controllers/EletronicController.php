@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Resources\EletronicResource;
+use App\Models\Brand;
 use App\Models\Eletronic;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -23,7 +24,12 @@ class EletronicController extends Controller
      */
     public function index()
     {
-        return EletronicResource::collection($this->eletronic->all());
+        $eletronics = $this->eletronic->all();
+        foreach ($eletronics as $eletronic) {
+            $eletronic->brand = Brand::BRANDS[$eletronic->brand];
+        }
+        $eletronics['brands'] = Brand::BRANDS;
+        return $eletronics;
     }
 
     /**

@@ -155,6 +155,12 @@ return [
         'attribute-name' => [
             'rule-name' => 'custom-message',
         ],
+        'brand' => [
+            'required' => 'O campo marca é obrigatório.',
+        ],
+        'voltage' => [
+            'required' => 'O campo voltagem é obrigatório.',
+        ],
     ],
 
     /*
